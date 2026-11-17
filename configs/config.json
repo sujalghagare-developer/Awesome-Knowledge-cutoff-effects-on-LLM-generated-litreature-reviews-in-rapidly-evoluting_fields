@@ -1,0 +1,27 @@
+{
+  "project_name": "AITR_Lab02_MSE2026015_CitationGrounding",
+  "student_name": "Sujal Rajesh Ghagare",
+  "enrollment_no": "MSE2026015",
+  "random_seed": 42,
+  "dataset": {
+    "corpus_path": "data/corpus.json",
+    "queries_path": "data/queries.json",
+    "num_queries": 20,
+    "dev_split_size": 8,
+    "test_split_size": 12
+  },
+  "retrieval": {
+    "top_k": 3,
+    "passage_window_words": 150
+  },
+  "grounding": {
+    "default_threshold": 0.50,
+    "ablation_thresholds": [0.20, 0.35, 0.50, 0.65, 0.80]
+  },
+  "output_paths": {
+    "results_csv": "results/results.csv",
+    "summary_metrics_json": "results/summary_metrics.json",
+    "figures_dir": "results/figures",
+    "paper_figures_dir": "paper/figures"
+  }
+}

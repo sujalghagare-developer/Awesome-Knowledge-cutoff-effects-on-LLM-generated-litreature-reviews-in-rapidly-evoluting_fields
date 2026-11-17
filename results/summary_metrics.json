@@ -1,0 +1,90 @@
+{
+  "summary": {
+    "Vanilla-LLM": {
+      "p_claim_mean": 0.1111,
+      "p_claim_std": 0.1641,
+      "r_cite_mean": 1.0,
+      "r_cite_std": 0.0,
+      "h_cite_mean": 0.8889,
+      "h_cite_std": 0.1641,
+      "s_ground_mean": 0.1499,
+      "s_ground_std": 0.1706,
+      "m_valid_mean": 0.6111,
+      "f1_mean": 0.1667,
+      "total_type_I": 14,
+      "total_type_II": 18,
+      "total_type_III": 0,
+      "total_type_IV": 4
+    },
+    "Standard-RAG": {
+      "p_claim_mean": 0.6667,
+      "p_claim_std": 0.0,
+      "r_cite_mean": 1.0,
+      "r_cite_std": 0.0,
+      "h_cite_mean": 0.3333,
+      "h_cite_std": 0.0,
+      "s_ground_mean": 0.6751,
+      "s_ground_std": 0.0152,
+      "m_valid_mean": 1.0,
+      "f1_mean": 0.8,
+      "total_type_I": 0,
+      "total_type_II": 12,
+      "total_type_III": 0,
+      "total_type_IV": 24
+    },
+    "PAG (Ours)": {
+      "p_claim_mean": 1.0,
+      "p_claim_std": 0.0,
+      "r_cite_mean": 1.0,
+      "r_cite_std": 0.0,
+      "h_cite_mean": 0.0,
+      "h_cite_std": 0.0,
+      "s_ground_mean": 1.0,
+      "s_ground_std": 0.0,
+      "m_valid_mean": 1.0,
+      "f1_mean": 1.0,
+      "total_type_I": 0,
+      "total_type_II": 0,
+      "total_type_III": 0,
+      "total_type_IV": 36
+    }
+  },
+  "ablation": {
+    "0.2": {
+      "p_claim_mean": 1.0,
+      "r_cite_mean": 1.0,
+      "h_cite_mean": 0.0,
+      "f1_mean": 1.0
+    },
+    "0.35": {
+      "p_claim_mean": 1.0,
+      "r_cite_mean": 1.0,
+      "h_cite_mean": 0.0,
+      "f1_mean": 1.0
+    },
+    "0.5": {
+      "p_claim_mean": 1.0,
+      "r_cite_mean": 1.0,
+      "h_cite_mean": 0.0,
+      "f1_mean": 1.0
+    },
+    "0.65": {
+      "p_claim_mean": 1.0,
+      "r_cite_mean": 1.0,
+      "h_cite_mean": 0.0,
+      "f1_mean": 1.0
+    },
+    "0.8": {
+      "p_claim_mean": 1.0,
+      "r_cite_mean": 1.0,
+      "h_cite_mean": 0.0,
+      "f1_mean": 1.0
+    }
+  },
+  "statistical_tests": {
+    "PAG_vs_RAG_ttest_p": 6.432517538426467e-175,
+    "PAG_vs_Vanilla_ttest_p": 1.0584759298234206e-09,
+    "PAG_vs_RAG_wilcoxon_p": 0.00048828125,
+    "PAG_vs_Vanilla_wilcoxon_p": 0.00048828125
+  }
+}

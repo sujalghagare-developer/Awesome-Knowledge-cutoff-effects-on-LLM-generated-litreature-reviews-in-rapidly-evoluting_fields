@@ -1,0 +1,737 @@
+% =========================================================
+% Final Mid-Semester Review Paper
+% =========================================================
+\documentclass[acmsmall,screen]{acmart}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{Bib\TeX}}%
+}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+
+\title{Knowledge Cutoff Effect on LLM-Generated Literature Reviews in Rapidly Evolving Fields}
+
+\author{Sujal Rajesh Ghagare}
+\affiliation{%
+  \institution{Indian Institute of Information Technology Allahabad}
+  \department{Department of Information Technology}
+  \city{Prayagraj}
+  \country{India}
+}
+\email{mse2026015@iiita.ac.in}
+
+\keywords{Large Language Models, Knowledge Cutoff, Literature Review,
+Generative AI, Retrieval-Augmented Generation, Citation Reliability,
+Hallucination, Scholarly Retrieval, Human-in-the-Loop Verification}
+
+\begin{abstract}
+Large Language Models (LLMs) are increasingly used to support
+literature-review activities because they can summarize research,
+organize information, identify common themes, and generate academic
+text rapidly. This, however, can be a serious limitation - the time frame for any information that the model has access to. Research
+There is no way for a model's current knowledge to see the publication data if it falls after the time set during training.
+Decrease the accuracy and timeliness of an LLM-generated literature review.
+This is especially true for those emerging areas such as the impact of this work on artificial intelligence, and security.
+Innovation in medicine and biotechnology – where new methods, data, models, and empirical discoveries are emerging.
+A recent literature review for have access to a current counter example may miss crucial studies, portray out-dated
+Drawn from current approaches, point out already addressed research gaps, or paint too old results.
+Furthermore, literature reviews written by LLMs can include inaccurate citations and made-up references.
+
+This review integrates the effects of temporal knowledge restrictions, hallucination, retrieval-
+augmented generation, scholarly retrieval, and human verification. It organizes mitigation strategies
+into retrieval-based, verification-based, human-based, and hybrid
+approaches, compares their strengths and limitations, and identifies
+open research gaps. The review states retrieval can provide further accessibility to the recent Evidence, but retrieval alone does not assure source relevance, factuality, or proper citation-to-claim.
+Reviews. Dependable literature reviews aided by LLMs, thus, demand contemporary academic references, confirmation,
+structured synthesis, and human oversight.
+
+
+\end{abstract}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Literature reviews are an essential component of scientific research.
+They help researchers understand previous work, compare competing
+approaches, identify methodological trends, and determine unresolved
+research questions. Traditionally, preparing a literature review
+requires researchers to search scholarly databases, screen relevant
+publications, read individual studies, extract findings, and synthesize
+evidence across multiple sources. The increasing availability of Large
+Language Models (LLMs) has introduced new possibilities for assisting
+with several of these activities.
+
+LLMs can summarize documents, generate explanations, classify
+information, and produce structured academic text. These capabilities
+make them attractive as research assistants. However, fluent text
+generation does not necessarily imply that the underlying information
+is complete, current, or supported by reliable sources. A literature
+review is especially sensitive to this distinction because its purpose
+is to represent a body of evidence rather than simply produce fluent
+text.
+
+A central issue is the temporal boundary of model knowledge. Research
+published after the information available to a model may be absent from
+its internal knowledge. This can be particularly important in rapidly
+One of the fastest maturing areas in machine learning: new papers, datasets, benchmarks, models,
+And the experimental results are shown within a few seconds. Fig.~\ref{fig:cutoff}
+ shows the fundamental difference model knowledge boundary.
+And later publications.
+
+\begin{figure}[t]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,
+
+box/.style={
+
+draw,
+ rounded corners,
+ align=center,
+ minimum height=8mm,
+
+text width=25mm
+
+},
+
+smallbox/.style={
+
+draw,
+ rounded corners,
+ align=center,
+ minimum height=8mm,
+
+text width=31mm
+
+}]
+
+\draw[->] (0,0) -- (9,0);
+
+\node[box] at (1.4,0.7) {Older literature\\available};
+
+\node[box] at (4.3,0.7) {Model knowledge\\boundary};
+
+\node[smallbox] at (7.2,0.7) {Newer literature\\may be missing};
+
+\draw[dashed] (4.3,-0.45) -- (4.3,1.35);
+
+\node[align=center] at (2.0,-0.55) {Training / internal\\knowledge};
+
+\node[align=center] at (6.8,-0.55) {Post-cutoff\\research};
+
+\draw[->,thick] (7.2,-1.25) -- (4.8,-1.25);
+
+\node [smallbox] at (2.4,-1.75)
+
+{External scholarly retrieval\\can provide current evidence};
+
+\end{tikzpicture}
+
+
+
+\label{fig:cutoff}
+
+\end{figure}
+
+The second is the quality of citations. Walters and Wilder observed that.
+ChatGPT-generated bibliographic citations can contain fabricated
+references and substantive errors \cite{walters2023}. Hallucination is
+Is also a broader issue in generation of natural language, Ji et al. survey
+How to detect and prevent AI-generated content that is not
+adequately supported by evidence \cite{ji2023hallucination}. Scientific
+Text can be very convincing but still include fabricated data,
+As shown by the work of Gao et al. on the scientific produced by ChatGPT
+abstracts \cite{gao2023abstracts}.
+
+These problems are of greater importance to a literature review than any one.
+Summary. A review necessitates coverage of a topic, comparison across
+Studies, interpretation of change over time, and identification
+Of research gaps. The absence of up-to-date literature reviews can significantly impact to the productivity of.
+Both individual claims and the overall synthesis.
+
+This review was designed to answer the following questions:
+
+\begin{enumerate}
+
+How could information cutoff have an impact on the completeness and
+
+interpretation of LLM-generated literature reviews?
+
+•What retrieval and verification methods can mitigate them
+
+effects?
+
+\item What kind of limitations could be expected if the information were to be given now
+
+to an LLM?
+
+\item Research directions to enable more trusted literature
+
+synthesis in rapidly evolving fields?
+
+\end{enumerate}
+
+The major improvements are a logical timetable analysis,
+A taxonomy of mitigation approaches a comparative synthesis of
+Retrieval and verification strategies and a practical workflow for
+LLM-assisted literature reviews.
+
+\section{Background and Conceptual Foundation}
+
+\subsection{Large Language Models}
+
+A neural language model trained on a large
+collections of text. Their capabilities include summarization,
+question answering, classification, translation, and text generation.
+These abilities may decrease the effort for research support.
+Had to analyze and summarize massive data.
+
+Language generation and the ability to retrieve information from evidence but not language generation.
+Roles. An LLM is capable of generating comprehensible text even if not during training.
+By the most recent scientific publications. This is a key point in the
+knowledge-cutoff problem.
+
+\subsection{Knowledge Cutoff}
+
+Knowledge cut off is used here to mean a time cutoff point after which.
+Relevant information is not represented in the available model
+Parametric information. When a paper falls outside those boundaries and goes past this boundary and.
+Because it can be inferred by the model if it is not provided by an outside source.
+
+Knowledge cutoff is not the same as hallucination. Cutoff is
+primarily an information-availability problem, whereas hallucination
+Be intertwined, with misinformation potentially leadng to hallucinations, as a hallucinating model can hallucinate a misinformation response.
+Interact: a fresh evidence despari talcan fill an information gap!
+With older knowledge or unsupported statements.
+
+\subsection{LLM-Assisted Literature Reviews}
+
+An LLM-enabled literature review might do a search,
+paper summarization, comparison of findings, thematic classification,
+Evidence synthesis, and drafting. While these activities have varied.
+Requirements. Summarizing a provided paper for the model, however, is the same
+From requesting the newest research in an area.
+
+For the experiments, the test and train data are labeled in the first and second sentence.
+Will differ based on the task and dataset used. Khraisha et al. compared the performance of GPT-4 on a.
+In conjunction with screening and data extraction we found that performance was dependent on
+task conditions, dataset balance, and prompt quality
+\cite{khraisha2024}. This suggests the need for approaching a LLM-assisted review as a
+Multi-stage workflow rather than just one generation step.
+
+\subsection{Fast Moving Areas}
+
+The time issue is particularly relevant in AI,
+Cybersecurity, medicine and biotechnology. In this spheres, new
+models, methods, datasets, vulnerabilities, clinical findings, and
+Benchmarks can mutate the research mosaic in a jiffy. An examination that was
+Sufficient at a time may become short as evidence emerges.
+
+\section {Thematic Literature Review}
+
+\subsection{Recent Work Lacking}
+
+At the most basic level a knowledge cutoff's most immediate consequences is the omission of studies.
+Published beyond the available knowledge frontier. A review created
+Without current retrieval could thus reflect a prior state of a
+field.
+
+Absent recent work can influence descriptive and analytical.
+Sections. A subsequent study could establish a new benchmark, question an
+If it's missing, the review can't provide earlier result, orit can't extend.a technique. If it's missing, the review cannot.
+Incorporate that contribution.
+
+\subsection{Outdated Information}
+
+A model will sometimes correctly describe a technique that is relevant only for a number of years.
+Roughly a decade ago without highlighting the newer options. This results in a.
+Temporal mismatch with the review created and the present
+research landscape.
+
+This problem becomes particularly symptomatic when the user requests the „latest".
+State of the art. Such a request requires explicit access to current
+"Not based on evidence, not on insider knowledge, but evidence."
+
+\subsection{Incorrect Research Gaps}
+
+Identified gaps in the evidence include: The evidence is danged.
+Lating the gaps in knowledge. In the absence of contemporary literature, an LLM
+May refer to an issue as still unresolved if the subsequent research has notyet 
+addressed it.
+
+A statement like "a limited number of research has examined X" must, therefore, refer to.
+A search that is both broad and up to date enough. Gap identification is not just
+Not a language-generation task, but an evidence-coverage task.
+
+\subsection{Temporal Bias}
+
+Older publications may be simpler for a model to reproduce than very.
+Recent literature. So, an LLM-generated review can provide.
+Giving disproportionate focus to historical work Temporal bias can influence in which
+research trends and apparent importance are interpreted.
+
+A trustworthy review should then consider the distribution of.
+Using evidence from across time and specifically looking for recent publications,
+Rather than using refs created often, as proof of
+current importance.
+
+\subsection{Citation and Reference Errors}
+
+The freshness of the knowledge is different from the reliability of the citation A citation
+Might seem to be authentic as it has author, year, journal and DOI,
+However, formatting does not prove that the publication is available or that
+it supports the associated claim.
+
+Walters and Wilder provided false and false bibliographies.
+Sample of ChatGPT literature reviews with citations in the hundreds
+\cite{walters2023}. Chelli et al. similarly evaluated references
+Forschungsbericht arbeiten! For systematic reviews and had low precision and.
+Substantial hallucination rates in the tested models
+\cite{chelli2024}. These findings demonstrate why generated references
+must be independently checked.
+
+\section{Citation Reliability and Hallucination}
+
+\subsection{Fabricated References}
+
+An LLM might create a credit that looks like a authentic academic
+Publication even if the publication does not exist. References such as this one:.
+Can give the false appearance that unsupported statements have been made in support of evidence.
+
+\subsection{Bibliographic Errors}
+
+Even if a reference is an accurate publication, metadata may
+Be wrong. Mistakes might appear in author names, titles, years, journal
+Details, page information, or DOI identifications. For verification should be
+check the complete bibliographic record.
+
+\subsection{Citation-to-Claim Alignment}
+
+Having a citation is not enough, the publication being cited must also
+That is used to encourage the argument. A real paper can be used out of.
+Grounds for a more confident conclusion than the paper justifies.
+
+A practical verification process therefore checks:
+
+\begin{enumerate}
+
+\item whether the publication exists;
+
+\item if the bibliographical metadata are valid; or.
+\item determine if the publication does in fact support the specific claim.
+
+\end{enumerate}
+
+\subsection{Writing a Scientific Text}
+
+Gao et al. demonstrated that ChatGPT has the ability to produce realistic scientific content
+Abstracts that blinded human readers from generated and
+Authentic abstracts somewhat hard to differentiate at time
+\cite{gao2023abstracts}. It demonstrates the importance of the writing quality which should not
+be treated as evidence of factual reliability.
+
+Alkaissi and McFarlane also wrote of concerns with artificial
+hallucinations in scientific writing \cite{alkaissi2023}. Together,
+These studies require explicit validation of both the claims generated.
+And references.
+
+\section{Existing Approaches and Research Developments}
+
+\subsection{Web and Scholarly Retrieval}
+
+Search on the web can give an LLM access to information that is more recent than the model itself.
+Knowledge. Scholarly databases add research-oriented filtering and
+Bibliographic metadata. But search results do not include duplicates,
+irrelevant material, non-peer-reviewed sources, or incomplete coverage.
+
+Therefore, it is prudent to screen for post retrieval.
+Relevance, publication quality, date, and methodological fit.
+
+Search tools of research discovery can also assist researchers in finding related and.
+Recently published studies through citation and similarity
+relationships. Figure~\ref{fig:researchrabbit} shows an example of the
+Research Rabbit interface for discovering related scholarly articles
+And citation relationships. Tools like these can aid in the detection
+You are receiving this message due to your readiness for the knowledge boundary of current research.
+Of an LLM.
+
+\begin{figure}[H]
+
+\centering
+
+\includegraphics[width=\columnwidth]{figures/researchrabbit.png}
+
+\caption{Research Rabbit interface showing related scholarly articles
+and citation relationships for literature discovery.}
+
+\label{fig:researchrabbit}
+
+\end{figure}
+
+Retrieval-Augmented Generation (RAG) combines information retrieval
+For Language Generation. Lewis et al. proposed a RAG framework that
+combines parametric and non-parametric memory for knowledge-intensive
+Tasks \cite{lewis2020rag}. Later a survey describes RAG as a way to
+address problems including outdated knowledge by incorporating
+information from external databases \cite{gao2023rag}.
+
+RAG directly concerns knowledge cut-off as: current docs.
+Can be retrieved at query time. While retrieval retrieves, can it guarantee
+What a good review if the search documents are not related, are old,
+Or duplicated, or poor quality generation can all still be inaccurate.
+
+\subsection{ Reasoning and External Interaction}
+
+ReAct marries reasoning trails and actions that permit a language
+Model to connect to outside resources \cite{yao2023react}. For
+Literature-review-help, this kind of interaction is important
+Because searching, screening, and verification may need to be done...
+Actions rather than a single response.
+
+\subsection{Self-Reflective Retrieval}
+
+As for the Self-RAG, it goes beyond retrieval-augmented generation by letting a model
+Search for the information when needed and think about the passages you have obtained and.
+Those of its designers \cite{asai2024selfrag}. It is a generalization to.
+Synthesising information in different areas is important because accuracy of citation and verbatimness depend
+Not only on document retrieval but also on assessment of their
+usefulness.
+
+\subsection{Corrective Retrieval}
+
+Corrective RAG adds a retrieval evaluator that evaluates the retrieved
+Documents and can also initiate supplementary retrieval operations.
+Initial results are inadequate \cite{yan2024crag}. This direction
+Shows that an important research trend emerging in high- quality retrieval is:
+To be assessped to be correct.
+
+\subsection{LLM-Assisted Literature Reviews}
+
+An LLM-supported review might consist of: Searching assistance,
+paper summarization, comparison of findings, thematic classification,
+Evidence synthesis, and writing. All these activities have different
+Requirements. Generating a summary of a paper been fed to model is a different
+To turn to the newest research in a field.
+
+Additional evidence from systematic-review tasks also indicates that LLM performance
+Name varies by task and dataset. Khraisha et al. processed GPT-4 for the above experiment.
+Choosing the relevant search criteria for screening and data extraction and discovered that the performance was based on:
+task conditions, dataset balance, and prompt quality
+\cite{khraisha2024}. This supports the argument to regard the LLM-aided review as a
+Rather than a single generation step.
+
+\subsection{Rapidly Evolving Fields}
+
+This temporal problem is of particular importance in the field of AI.
+Cybersecurity, medicine, and biotechnology. In such fields, new
+models, methods, datasets, vulnerabilities, clinical findings, and
+Why benchmarking can be the ultimate research killer A mild-mannered. A review that was.
+Sufficient at one stage but may become full when further information becomes available.
+
+\section{Thematic Literature Review}
+
+\subsection{Missing Recent Research}
+
+One of the most direct impact from a knowledge cutoff is missing of study
+Published after the data knowledge boundary. A review conducted
+Withholding current access to retrieval hmay therefore constitute an earlier state of a
+field.
+
+Missing current work can And descriptive and analytical
+Sections. This more recent work can define a new standard, question a
+Based on some previous finding, or are requesting to publicize this assessment. If this is not available, the standard is unable to.
+Incorporate that contribution.
+
+\subsection{Outdated Information}
+
+A model can accurately represent a method that was significant for many.
+Years ago while omitting newer options. This generates a
+Temporal mismatch between the created review and the to run in the model:.
+Research landscape.
+
+This is especially true when the user has asked for the `latest''
+State of the art. Such a request requires explicit access to current
+Evidence and not static memos stored in mind.
+
+\subsection{Wrong Research Gaps}
+
+Research gaps emerge from the synthesis of evidence and
+De in what is not clear. In the absence of current papers, an LLM
+May identify an issue as open even if subsequent research has previously
+addressed it.
+
+A statement such as `few studies have explored X''must therefore
+A wide and recent enough search. Not only is gap finding.
+A language-generation task; it is an evidence-coverage task.
+
+\subsection{Temporal Bias}
+
+Older publications could be more subject to model replication than very.
+Recent writings. As a result, an LLM summary can provide an entire overview of.
+Attention is paid to earlier work. Temporal bias can influence.
+Research trends and apparent importance are interpreted.
+
+A robust review ought to, therefore, take a look at the distribution of
+Look for evidence over time and specifically exclude the most recent articles,
+Instead of considering commonly produced references as evidence of
+current importance.
+
+\subsection{Citation and Reference Problems}
+
+-- Citation accuracy is a matter different from how current the information in the citation is. A citation
+May appear believable as there is an author, year, journal, and DOI.
+But that formatting does not prove the publication exists or that
+it supports the associated claim.
+
+Walters and Wilder cited in the work of book and illiterate.
+Citations in a large dataset of ChatGPT authored literature reviews
+\cite{walters2023}. Chelli et al. similarly evaluated references
+Produced for systematic reviews and performance center!
+Substantial hallucination rates in the tested models
+\cite{chelli2024}. These findings demonstrate why generated references
+Must be verified separately. Eval makes it easier to get up-to-date evidence, but it creates a new.
+Failure reason: retrieval success. Confirmation of the reference and
+Source accuracy, but one cannot recover citations that have not been obtained.
+Problems with interpretation, but this can add to
+Time and effort. Here they also highlight why hybrid workflows have been an
+important research direction.
+
+\section{Research Trends and Developments}
+
+The literature tracks a development from static generation to the following:
+Systems linking language models to external knowledge. Early.
+Retrieval-augmented generation combined parametric and non-parametric
+memory \cite{lewis2020rag}. Subsequent work has emphasized adaptive
+Retrieval, self-correction and correction of inappropriate retrieval results
+\cite{asai2024selfrag, yan2024crag}.
+
+The other thing, and this is probably a function of where I am, is more emphasis on citation and factuality.
+Analysis of the generated references shows that a fluent output can.
+Contain fabricated or incorrect citations \cite{walters2023,chelli2024}.
+This has converted the research problem from "can an LLM generate a
+Can an LLM generate a review with the evidence can be A review?''
+
+traced and checked?''
+
+The third trend is human--AI task decomposition. Systematic evidence from
+Review experiments indicate that LLMs can help with certain
+Screening or extraction tasks in appropriate conditions, and
+performance varies across datasets and tasks
+\cite{khraisha2024}. This supports processes where automations can be.
+Combined with human control rather than leapfrogging every step of the way.
+Be automated equally well.
+
+\section{Challenges and Limitations}
+
+\subsection{Retrieval Coverage}
+
+There is no retrieval system that is infallible.
+Each database has a unique collection of journals and document types, and
+Keyword-based searching will overlook papers using other words.
+
+\subsection{Source Quality}
+
+Even up-to-date information may be inacurate if the source you retrieved is
+Poor quality Search freshness would therefore not be equated with
+scientific validity.
+
+\subsection{Conflicting Findings}
+
+"Recent work may contradict earlier work. Each system must recognise"
+Or if a paper is novel, corroborates, extends or refutes previous work
+A different approach to prioritising rather than just giving all papers equal value.
+
+\subsection{Citation Verification Cost}
+
+It can become costly to verify every claim and cite that you generate. A
+A practical system thus requires processes for ranking claims that
+Are particularly significant, recent, controversial, or poorly documented.
+
+\subsection{Human Interpretation}
+
+Research gaps and scientific significance require interpretation.
+Automated machines are capable of sorting evidence; but whether a
+Represents a substantial gap in knowledge.
+Domain-dependent.
+
+\section{Research Gaps}
+
+However, there is much work still to be done in retrieval and verification.
+
+\subsection{Standardized Temporal Evaluation}
+
+A requirement is for evaluation protocols that directly assess the
+
+Well a generated review of all literature over time. So:
+
+Use benchmarks independently evaluate the now coverage and the coverage
+of recent publications.
+
+\subsection{Temporal Retrieval Recall}
+
+Additional tools should evaluate the retrieval recall for the nearly-studies in future systems.
+Originality of source, quality of source, and source types, and temporal diversity. A review
+Alone not be taken as current just because it has a few
+recent citations.
+
+\subsection{Citation Correctness}
+
+Go beyond verification of whether a reference.
+. Systems should also verify bibliographical accuracy and if
+the cited publication supports the generated claim.
+
+\subsection{Research-Gap Identification}
+
+Automated identification of gaps is still challenging as it involves
+Cross-paper comparison the focus on innovation and currency. Systems
+Be considered when assessing if the suggested gaps are present.
+Retrieving the current literature.
+
+\subsection{Human--AI Collaboration}
+
+Future work should explore how to apportion between researchers and LLMs.
+Tasks effectively. Systems could automatically process routine
+Rates while redirecting doubtful, high-stakes assertions to a human
+reviewers.
+
+\subsection{Evaluation in the Fast Moving Fields}
+
+Lack of movement in many benchmarks domains that move quickly
+
+Demand periodic reviews and that reflect the following:
+
+new terminology, methods, benchmarks, and changing evidence.
+
+\section{Suggestions for Future Research}
+
+Future literature-review systems should provide explicit source
+Adding linking so that significant assertions can be linked to evidence.
+Documents. This would enable researchers to review the evidence instead of).
+Trusting generated prose.
+
+An alternative avenue is automated temporal analysis. Systems might
+Study in order of publication and note if new studies are
+confirms, extends, or contradicts earlier findings.
+
+Citation verification should also become more claim-aware. Instead of
+By validating the presence of a DOI using only that compares generated systems should.
+Compares claims with the published paper and identifies potential disagreements.
+
+Uncertainty indicators could further distinguish well-supported claims
+From statements based on sparse or contradictory evidence. This
+Would assist researchers target manual validation where it could be most
+needed.
+
+Finally, human-in-the-loop systems should be built on real
+Research processes. Not everything is meant to be automated,
+But well organized division of Retrieval and Generation,.
+Verification, and expert judgment.
+
+\section{Recommended Workflow}
+
+From the reviewed literature, the following should be delineated for a reliable workflow:
+retrieval, screening, evidence extraction, generation, and final
+verification. Figure~\ref{fig:workflow} presents the proposed process.
+
+\begin{figure}[t]
+
+\centering
+
+\begin{tikzpicture}[>=Latex,
+
+step/.style={
+
+draw,
+ rounded corners,
+ align=center,
+ text width=32mm,
+
+minimum height=7mm
+
+}]
+
+\node[step] (s1)
+
+{1. Search recent academic references};
+
+\node[step, below=3.5mm of s1] (s2)
+
+{2. Retrieve and screen relevant papers};
+
+\node[step, below=3.5mm of s2] (s3)
+
+{3. Verify metadata and source quality};
+
+\node[step, below=3.5mm of s3] (s4)
+
+{4. Extract evidence and summarize};
+
+\node[step, below=3.5mm of s4] (s5)
+
+{5. Synthesize findings with the LLM};
+
+\node[step, below=3.5mm of s5] (s6)
+
+{6. Check claims and citations};
+
+\node[step, below=3.5mm of s6] (s7)
+
+{7. Human review and final interpretation};
+
+\foreach \a/\b in {s1/s2,s2/s3,s3/s4,s4/s5,s5/s6,s6/s7}
+
+\draw[->] (\a) -- (\b);
+
+\end{tikzpicture}
+
+\caption{Recommended workflow for reliable LLM-assisted literature reviews.}
+
+\label{fig:workflow}
+
+\end{figure}
+
+As shown in Figure~\ref{fig:workflow}, retrieval occurs before
+Synthesis to increase the amount of recent evidence that can enter into the workflow. Screening and.
+Results with incorrect or irrelevant information.
+The sources. Organization and synthesis with the LLM.
+Claim and citation reviews are carried out in advance of the final human review.
+
+This process has intentionally not been fully automated. Human in the loop.
+Responsible for evaluating conflicting evidence, scientific
+significance, and research-gap claims.
+
+\section{Conclusion}
+
+Knowledge cutoff is another critical limitation when LLMs are employed to
+Generate literature reviews in rapidly evolving research fields. A
+Model might not have seen very new papers, and may memorize them,
+We do not identify research gaps accurately, or produce nonsensical citations.
+
+Reviewed in this paper demonstrates that various mitigation
+Strategies tackle various facets of the problem. Web and academic.
+Retrieval get you the most up-to-date evidence; RAG combines retrieved
+information with generation; self-reflective and corrective approaches
+evaluate retrieval and generation; citation verification checks
+– Bibliographical and claim-level reliability is better; and human review with backing.
+Interpretation.
+
+The key takeaway is that LLMs must be regarded as research.
+Assistants less than the authorities on the current
+Scientific papers. An up-to-date review has to make use of updated.
+Retrieval, verification, structured synthesis, and human judgment.
+In the future, research in a standardized time frame,
+retrieval coverage, citation correctness, research-gap identification,
+and effective human--AI collaboration.
+
+\bibliographystyle{ACM-Reference-Format}
+
+\bibliography{references}
+
+\end{document}

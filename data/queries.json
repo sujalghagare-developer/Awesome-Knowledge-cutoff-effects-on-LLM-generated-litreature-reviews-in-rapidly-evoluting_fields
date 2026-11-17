@@ -1,0 +1,142 @@
+[
+  {
+    "id": "Q01",
+    "query": "Synthesize how Retrieval-Augmented Generation (RAG) integrates non-parametric memory to overcome static parametric knowledge boundaries in language models.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["lewis2020rag", "gao2023rag"],
+    "split": "dev"
+  },
+  {
+    "id": "Q02",
+    "query": "Compare the reflection token critique mechanism in Self-RAG with standard retrieve-then-read RAG for reducing factual errors in generated text.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["asai2024selfrag", "lewis2020rag"],
+    "split": "dev"
+  },
+  {
+    "id": "Q03",
+    "query": "Summarize empirical findings regarding the fabrication and error rates in bibliographic citations produced by commercial LLMs.",
+    "subdomain": "Citation Reliability",
+    "gold_paper_ids": ["walters2023", "chelli2024"],
+    "split": "dev"
+  },
+  {
+    "id": "Q04",
+    "query": "Evaluate the efficacy of GPT-4 in systematic review screening and data extraction tasks and discuss human reviewer risks.",
+    "subdomain": "Evidence Synthesis",
+    "gold_paper_ids": ["khraisha2024"],
+    "split": "dev"
+  },
+  {
+    "id": "Q05",
+    "query": "Analyze how Corrective RAG (CRAG) handles low-quality or irrelevant retrieved passages compared to conventional retrieval.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["yan2024crag", "gao2023rag"],
+    "split": "dev"
+  },
+  {
+    "id": "Q06",
+    "query": "Review the clinical and scientific implications of artificial hallucinations in biomedical writing and medical abstract generation.",
+    "subdomain": "Citation Reliability",
+    "gold_paper_ids": ["alkaissi2023", "gao2023abstracts"],
+    "split": "dev"
+  },
+  {
+    "id": "Q07",
+    "query": "Explain how Chain-of-Verification (CoVe) and ReAct leverage reasoning steps to mitigate hallucination during knowledge retrieval.",
+    "subdomain": "Verification Mechanisms",
+    "gold_paper_ids": ["dhuliawala2023cove", "yao2023react"],
+    "split": "dev"
+  },
+  {
+    "id": "Q08",
+    "query": "Contrast atomic fact evaluation in FActScore with citation precision and recall benchmarks in ALCE.",
+    "subdomain": "Verification Mechanisms",
+    "gold_paper_ids": ["min2023factscore", "gao2023alce"],
+    "split": "dev"
+  },
+  {
+    "id": "Q09",
+    "query": "Assess how knowledge cutoff limits parametric LLMs when synthesizing post-cutoff research developments without retrieval.",
+    "subdomain": "Knowledge Boundaries",
+    "gold_paper_ids": ["touvron2023llama2", "brown2020gpt3", "radford2019gpt2"],
+    "split": "test"
+  },
+  {
+    "id": "Q10",
+    "query": "Evaluate the distinction between intrinsic and extrinsic hallucinations in natural language generation.",
+    "subdomain": "Citation Reliability",
+    "gold_paper_ids": ["ji2023hallucination"],
+    "split": "test"
+  },
+  {
+    "id": "Q11",
+    "query": "Explain how Dense Passage Retrieval (DPR) improves retrieval accuracy for knowledge-intensive question answering over sparse retrieval.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["karpukhin2020dpr", "lewis2020rag"],
+    "split": "test"
+  },
+  {
+    "id": "Q12",
+    "query": "Examine the taxonomy of RAG frameworks: compare Naive RAG, Advanced RAG, and Modular RAG paradigms.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["gao2023rag"],
+    "split": "test"
+  },
+  {
+    "id": "Q13",
+    "query": "Discuss why citation presence in scientific text does not guarantee claim support, citing evidence from medical review benchmarks.",
+    "subdomain": "Citation Reliability",
+    "gold_paper_ids": ["chelli2024", "walters2023"],
+    "split": "test"
+  },
+  {
+    "id": "Q14",
+    "query": "Analyze why human reviewers failed to identify one-third of ChatGPT-generated medical abstracts in blinded evaluations.",
+    "subdomain": "Citation Reliability",
+    "gold_paper_ids": ["gao2023abstracts"],
+    "split": "test"
+  },
+  {
+    "id": "Q15",
+    "query": "Synthesize the role of interactive external environments and action traces in ReAct for grounding model assertions.",
+    "subdomain": "Verification Mechanisms",
+    "gold_paper_ids": ["yao2023react"],
+    "split": "test"
+  },
+  {
+    "id": "Q16",
+    "query": "Describe how Self-RAG dynamically determines when external retrieval is required using the [Retrieve] reflection token.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["asai2024selfrag"],
+    "split": "test"
+  },
+  {
+    "id": "Q17",
+    "query": "Assess the vulnerability of parametric models like GPT-3 and Llama 2 to temporal staleness in machine learning benchmarks.",
+    "subdomain": "Knowledge Boundaries",
+    "gold_paper_ids": ["brown2020gpt3", "touvron2023llama2"],
+    "split": "test"
+  },
+  {
+    "id": "Q18",
+    "query": "Evaluate the effectiveness of conversational retrieval augmentation in reducing dialogue hallucination according to Shuster et al.",
+    "subdomain": "Verification Mechanisms",
+    "gold_paper_ids": ["shuster2021hallucination"],
+    "split": "test"
+  },
+  {
+    "id": "Q19",
+    "query": "Discuss the trade-offs of using lexical metrics versus reference-grounded token attribution in evaluating LLM-generated scientific answers.",
+    "subdomain": "Verification Mechanisms",
+    "gold_paper_ids": ["kamalloo2023eval", "min2023factscore"],
+    "split": "test"
+  },
+  {
+    "id": "Q20",
+    "query": "Synthesize how retrieval evaluator confidence scores in CRAG guide document correction and external web searches.",
+    "subdomain": "RAG Architectures",
+    "gold_paper_ids": ["yan2024crag"],
+    "split": "test"
+  }
+]
